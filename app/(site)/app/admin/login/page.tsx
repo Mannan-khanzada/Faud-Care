@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { hasSupabaseEnv } from '@/lib/supabase/server'
 import { LogoMark } from '@/components/logo'
-import { LoginForm } from './login-form'
+import { LoginForm } from '../../../../admin/login/login-form'
 
 export const metadata: Metadata = {
   title: 'Admin Login',
