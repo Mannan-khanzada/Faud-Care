@@ -1,4 +1,4 @@
-import { Field, TextInput, TextArea } from '@/components/admin/admin-fields'
+import { Field, TextInput, TextArea, ImageField } from '@/components/admin/admin-fields'
 import type { Counsellor } from '@/lib/content/counsellors'
 
 /** Shared fields for the counsellor create/edit forms. */
@@ -49,9 +49,12 @@ export function CounsellorFormFields({ counsellor }: { counsellor?: Counsellor }
       <Field label="Booking URL" hint="Optional — Google Calendar link specific to this counsellor">
         <TextInput name="booking_url" defaultValue={counsellor?.bookingUrl} type="url" />
       </Field>
-      <Field label="Photo path" hint="e.g. /counsellor-placeholder.png">
-        <TextInput name="photo" defaultValue={counsellor?.photo} />
-      </Field>
+      <ImageField
+        label="Photo / logo"
+        name="photo"
+        defaultValue={counsellor?.photo}
+        hint="The public list shows the FUAD logo until a real photo is added here. Choose a file to upload, or paste a link."
+      />
     </>
   )
 }

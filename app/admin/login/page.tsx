@@ -15,7 +15,7 @@ export default async function AdminLoginPage() {
     <div className="flex min-h-dvh items-center justify-center bg-secondary/30 px-5 py-12">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-sm">
         <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <LogoMark height={30} />
+          <LogoMark height={24} />
           <h1 className="font-heading text-xl text-navy">Admin</h1>
         </div>
 
@@ -31,7 +31,9 @@ export default async function AdminLoginPage() {
               <li>Create a free project at supabase.com.</li>
               <li>
                 Run <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/schema.sql</code>{' '}
-                then <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/seed.sql</code>{' '}
+                then <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/seed.sql</code>,{' '}
+                <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/updates-fuad-changes.sql</code> and{' '}
+                <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/updates-services-image-cta.sql</code>{' '}
                 in its SQL editor.
               </li>
               <li>

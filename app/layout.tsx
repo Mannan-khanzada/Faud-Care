@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-light-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
     apple: '/apple-icon.png',
@@ -82,7 +82,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montserrat.variable} bg-background`}>
-      <body className="min-h-dvh bg-background text-foreground antialiased">
+      <body
+        className="min-h-dvh bg-background text-foreground antialiased"
+        suppressHydrationWarning
+      >
         <OrganizationSchema />
         <PageLoader />
         {children}

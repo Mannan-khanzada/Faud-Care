@@ -14,8 +14,9 @@ import { cn } from '@/lib/utils'
  * The official logo must never be recreated, restyled, recoloured, or
  * distorted — only referenced from this constant.
  */
-const LOGO_SRC = ''
-const LOGO_ASPECT = 3.4 // width / height of the supplied asset; adjust to match
+const LOGO_SRC = '/fuad-logo.png'
+const LOGO_SRC_IVORY = '/fuad-logo-ivory.png'
+const LOGO_ASPECT = 528 / 138 // width / height of the supplied asset; adjust to match
 
 type LogoProps = {
   /** rendered height in pixels */
@@ -35,13 +36,13 @@ export function LogoMark({
   if (LOGO_SRC) {
     return (
       <Image
-        src={LOGO_SRC || '/placeholder.svg'}
+        src={tone === 'ivory' ? LOGO_SRC_IVORY : LOGO_SRC}
         alt="FUAD"
         height={height}
         width={Math.round(height * LOGO_ASPECT)}
         priority={priority}
-        className={cn('h-auto w-auto object-contain', className)}
-        style={{ height }}
+        className={cn('max-w-none object-contain object-left', className)}
+        style={{ height, width: Math.round(height * LOGO_ASPECT) }}
       />
     )
   }

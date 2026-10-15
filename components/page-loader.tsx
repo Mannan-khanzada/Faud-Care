@@ -15,6 +15,7 @@ export function PageLoader() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+    document.documentElement.setAttribute('data-hydrated', '1')
 
     if (sessionStorage.getItem('fuad_loaded') === '1') {
       setRemove(true)
@@ -42,7 +43,7 @@ export function PageLoader() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-ivory transition-opacity duration-500 ease-out"
+      className="fuad-loader fixed inset-0 z-[100] flex items-center justify-center bg-ivory transition-opacity duration-500 ease-out"
       style={{ opacity: hidden ? 0 : 1, pointerEvents: hidden ? 'none' : 'auto' }}
     >
       <div
@@ -52,7 +53,7 @@ export function PageLoader() {
           transform: mounted ? 'translateY(0)' : 'translateY(8px)',
         }}
       >
-        <LogoMark height={44} tone="navy" />
+        <LogoMark height={30} tone="navy" />
         <span className="relative h-px w-16 overflow-hidden rounded-full bg-sage/25">
           <span className="absolute inset-y-0 left-0 w-1/3 animate-[loaderSlide_1.1s_ease-in-out_infinite] rounded-full bg-sage" />
         </span>

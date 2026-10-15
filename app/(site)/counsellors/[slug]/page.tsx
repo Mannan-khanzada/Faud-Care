@@ -38,7 +38,11 @@ function isSet(value: string) {
 }
 
 function listIsSet(values: string[]) {
-  return values.length > 0 && values.some((v) => v !== TO_BE_CONFIRMED)
+  return (
+    Array.isArray(values) &&
+    values.length > 0 &&
+    values.some((v) => v !== TO_BE_CONFIRMED)
+  )
 }
 
 function DetailRow({ label, value }: { label: string; value: string }) {
@@ -67,7 +71,7 @@ function TagRow({ label, values }: { label: string; values: string[] }) {
       <dd>
         {listIsSet(values) ? (
           <div className="flex flex-wrap gap-2">
-            {values
+            {(Array.isArray(values) ? values : [])
               .filter((v) => v !== TO_BE_CONFIRMED)
               .map((v) => (
                 <span

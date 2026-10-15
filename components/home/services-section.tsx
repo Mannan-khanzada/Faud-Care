@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { getPublishedServices } from '@/lib/content/services'
+import { getPageContent } from '@/lib/content/page-content'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 import { ServiceCard } from '@/components/service-card'
@@ -9,6 +10,7 @@ import { cn } from '@/lib/utils'
 
 export async function ServicesSection() {
   const services = (await getPublishedServices()).slice(0, 6)
+  const c = await getPageContent()
   if (services.length === 0) return null
 
   return (
@@ -16,9 +18,9 @@ export async function ServicesSection() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading
-            eyebrow="Services"
-            title="Support for what you're carrying"
-            description="Thoughtful counselling across the areas of life where a little support can make a difference."
+            eyebrow={c.text('home.services_eyebrow')}
+            title={c.text('home.services_title')}
+            description={c.text('home.services_description')}
           />
           <Reveal delay={80}>
             <Link

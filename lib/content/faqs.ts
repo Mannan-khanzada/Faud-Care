@@ -48,7 +48,7 @@ export const faqs: Faq[] = [
     id: 'how-do-i-start',
     question: 'How do I start?',
     answer:
-      'You can book a session directly through our booking page, or start a conversation with FUAD on WhatsApp if you would like to ask something first. There is no pressure — you can begin at your own pace.',
+      'You can start a conversation through our WhatsApp if you would like to ask something first. There is no pressure — you can begin at your own pace.',
     published: true,
   },
   {

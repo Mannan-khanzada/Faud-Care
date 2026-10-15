@@ -1,15 +1,22 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { getSupabaseServerClient } from '@/lib/supabase/server'
+
+const LIST_PATH = '/admin/settings'
+
+function fail(message: string): never {
+  redirect(`${LIST_PATH}?error=${encodeURIComponent(message)}`)
+}
 
 export async function updateSettings(formData: FormData) {
   const supabase = await getSupabaseServerClient()
-  if (!supabase) throw new Error('Supabase is not configured.')
+  if (!supabase) fail('Supabase is not configured (check environment variables).')
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) throw new Error('Not authorised.')
+  if (!user) redirect('/admin/login')
 
-  await supabase
+  const { error } = await supabase
     .from('site_settings')
     .update({
       name: String(formData.get('name') ?? ''),
@@ -29,6 +36,8 @@ export async function updateSettings(formData: FormData) {
       updated_at: new Date().toISOString(),
     })
     .eq('id', true)
+  if (error) fail(error.message)
 
   revalidatePath('/', 'layout')
+  redirect('/admin/settings?saved=1')
 }

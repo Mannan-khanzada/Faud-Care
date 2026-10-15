@@ -1,15 +1,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { homepage } from '@/lib/content/homepage'
+import { getPageContent } from '@/lib/content/page-content'
 import { Reveal } from '@/components/reveal'
 import { BookingButton } from '@/components/booking-button'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { ctaVariants } from '@/components/ui/cta'
 import { cn } from '@/lib/utils'
 
-export function Hero() {
-  const { heading, description, secondaryCta } = homepage.hero
+export async function Hero() {
+  const c = await getPageContent()
+  const heading = c.text('home.hero_heading')
+  const description = c.text('home.hero_description')
+  const secondaryCta = c.text('home.hero_secondary_cta')
+  const secondaryHref = c.text('home.hero_secondary_href') || '/support'
+  const external = /^https?:\/\//i.test(secondaryHref)
 
   return (
     <section className="relative overflow-hidden px-5 pb-16 pt-10 sm:px-8 md:pb-24 md:pt-16">
@@ -20,7 +25,7 @@ export function Hero() {
             className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-sage"
           >
             <span className="size-1.5 rounded-full bg-sage" aria-hidden="true" />
-            Counselling &amp; emotional wellbeing
+            {c.text('home.hero_eyebrow')}
           </Reveal>
 
           <Reveal delay={60}>
@@ -40,13 +45,25 @@ export function Hero() {
             className="flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center"
           >
             <BookingButton size="lg" hideFallbackNote />
-            <Link
-              href="/services"
-              className={cn(ctaVariants({ variant: 'outline', size: 'lg' }))}
-            >
-              {secondaryCta}
-              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </Link>
+            {external ? (
+              <a
+                href={secondaryHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(ctaVariants({ variant: 'outline', size: 'lg' }))}
+              >
+                {secondaryCta}
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </a>
+            ) : (
+              <Link
+                href={secondaryHref}
+                className={cn(ctaVariants({ variant: 'outline', size: 'lg' }))}
+              >
+                {secondaryCta}
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </Link>
+            )}
           </Reveal>
 
           <Reveal delay={220}>
@@ -57,7 +74,7 @@ export function Hero() {
         <Reveal delay={120} className="relative">
           <div className="relative aspect-4/5 overflow-hidden rounded-[2rem] border border-border shadow-[0_30px_70px_-40px_rgba(35,55,79,0.5)] sm:aspect-4/3 lg:aspect-4/5">
             <Image
-              src="/hero.png"
+              src={c.text('home.hero_image') || '/hero.png'}
               alt="A calm, sunlit interior with a soft armchair and plants"
               fill
               priority

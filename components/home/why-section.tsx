@@ -1,12 +1,15 @@
 import { Shield, Heart, Award, Globe, Sparkles } from 'lucide-react'
-import { homepage } from '@/lib/content/homepage'
+import { getPageContent } from '@/lib/content/page-content'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 
 const icons = [Shield, Heart, Award, Globe, Sparkles]
 
-export function WhySection() {
-  const { eyebrow, heading, pillars } = homepage.why
+export async function WhySection() {
+  const c = await getPageContent()
+  const eyebrow = c.text('home.why_eyebrow')
+  const heading = c.text('home.why_heading')
+  const pillars = c.pairs('home.why_pillars')
 
   return (
     <section className="px-5 py-20 sm:px-8 md:py-28">

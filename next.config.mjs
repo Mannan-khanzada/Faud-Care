@@ -8,6 +8,11 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
 
+  // Admin forms can upload images (up to 5 MB) through server actions.
+  experimental: {
+    serverActions: { bodySizeLimit: '6mb' },
+  },
+
   async redirects() {
     return [
       // www -> non-www (single canonical host for SEO)

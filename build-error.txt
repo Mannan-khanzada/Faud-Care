@@ -1,0 +1,24 @@
+﻿node.exe : npm notice run fuad-care@0.1.0 build
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\user\AppData\Roaming\n ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (npm notice run fuad-care@0.1.0 build:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+npm notice run next build
+   Γû▓ Next.js 15.5.27
+   - Environments: .env
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully in 7.6s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/35) ...
+   Generating static pages (8/35) 
+Error occurred prerendering page "/counsellors/kanzah-mahar". Read more: https://nextjs.org/docs/messages/prerender-error
+TypeError: b.some is not a function
+    at q (C:\Users\user\OneDrive\Desktop\project\fuad-care\.next\server\app\(site)\counsellors\[slug]\page.js:2:8959) {
+  digest: '1393266128'
+}
+Export encountered an error on /(site)/counsellors/[slug]/page: /counsellors/kanzah-mahar, exiting the build.
+ Γ¿» Next.js build worker exited with code: 1 and signal: null

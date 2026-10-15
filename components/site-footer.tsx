@@ -23,7 +23,7 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-navy text-ivory">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr] md:py-20">
         <div className="flex flex-col gap-5">
-          <LogoMark height={32} tone="ivory" />
+          <LogoMark height={24} tone="ivory" />
           <p className="max-w-xs text-pretty text-sm leading-relaxed text-ivory/70">
             {settings.tagline}
           </p>

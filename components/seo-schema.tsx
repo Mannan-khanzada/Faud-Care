@@ -21,7 +21,7 @@ export function OrganizationSchema() {
         description: siteConfig.description,
         slogan: siteConfig.tagline,
         email: siteConfig.contact.email,
-        logo: `${siteConfig.url}/icon.svg`,
+        logo: `${siteConfig.url}/fuad-logo.png`,
       }}
     />
   )

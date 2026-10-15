@@ -1,3 +1,4 @@
+import { toList } from '@/lib/to-list'
 import { getSupabasePublicClient } from '@/lib/supabase/server'
 
 export type Service = {
@@ -17,6 +18,10 @@ export type Service = {
   counsellors: string[]
   /** optional service-specific Google Calendar booking URL */
   bookingUrl?: string
+  /** optional image shown on the service page (set in the admin panel) */
+  imageUrl?: string
+  /** optional custom text for the WhatsApp button (set in the admin panel) */
+  ctaLabel?: string
   published: boolean
 }
 
@@ -288,6 +293,8 @@ type ServiceRow = {
   related: string[]
   counsellors: string[]
   booking_url: string | null
+  image_url?: string | null
+  cta_label?: string | null
   published: boolean
 }
 
@@ -297,13 +304,15 @@ function rowToService(row: ServiceRow): Service {
     title: row.title,
     summary: row.summary,
     intro: row.intro,
-    supports: row.supports,
-    concerns: row.concerns,
-    involves: row.involves,
-    expect: row.expect,
-    related: row.related,
-    counsellors: row.counsellors,
+    supports: toList(row.supports),
+    concerns: toList(row.concerns),
+    involves: toList(row.involves),
+    expect: toList(row.expect),
+    related: toList(row.related),
+    counsellors: toList(row.counsellors),
     bookingUrl: row.booking_url ?? undefined,
+    imageUrl: row.image_url || undefined,
+    ctaLabel: row.cta_label || undefined,
     published: row.published,
   }
 }

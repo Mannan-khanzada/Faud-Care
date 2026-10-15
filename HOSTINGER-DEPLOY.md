@@ -22,7 +22,8 @@ git push -u origin main
 5. Domain connect + SSL (Force HTTPS) on.
 
 ## 3. Supabase
-- `supabase/schema.sql` phir `supabase/seed.sql` SQL Editor mein run karein.
+- SQL Editor mein **`supabase/repair.sql`** run karein (poori file, ek baar). Ye missing tables/columns bana deta hai aur schema cache refresh karta hai. Phir `supabase/seed.sql` run karein.
+- Agar admin mein "Could not find the ... column/table in the schema cache" aaye to dobara `repair.sql` chalayein.
 - Authentication → URL Configuration: Site URL `https://fuad.care`, Redirect `https://fuad.care/**`.
 - **Authentication → Sign In / Providers → "Allow new users to sign up" OFF karein.** Warna koi bhi signup karke admin ban sakta hai (RLS "logged-in = admin" maanti hai).
 - Admin user Authentication → Users → Add user se khud banayein.
