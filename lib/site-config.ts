@@ -41,9 +41,9 @@ export const siteConfig: SiteSettings = {
   name: 'FUAD',
   domain: 'FUAD.care',
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://fuad.care').replace(/\/$/, ''),
-  tagline: 'A safe space to understand yourself, heal, and grow.',
+  tagline: 'Online counselling with a spiritual foundation.',
   description:
-    'FUAD offers thoughtful counselling and emotional wellbeing support in a calm, non-judgmental space where you can pause, reflect, and be heard.',
+    'FUAD offers accessible, confidential, and compassionate online counselling with a spiritual foundation, supporting emotional wellbeing, relationships, and personal growth.',
 
   // Booking (Google Calendar). Empty string means "not configured yet".
   booking: {
@@ -74,6 +74,8 @@ export const siteConfig: SiteSettings = {
 export const mainNav = [
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
+  { label: 'Support', href: '/support' },
+  { label: 'Events', href: '/events' },
   { label: 'Counsellors', href: '/counsellors' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'FAQs', href: '/faqs' },
@@ -82,6 +84,8 @@ export const mainNav = [
 export const footerNav = [
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
+  { label: 'Support', href: '/support' },
+  { label: 'Events', href: '/events' },
   { label: 'Counsellors', href: '/counsellors' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'FAQs', href: '/faqs' },

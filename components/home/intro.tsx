@@ -1,8 +1,12 @@
-import { homepage } from '@/lib/content/homepage'
+import { getPageContent } from '@/lib/content/page-content'
 import { Reveal } from '@/components/reveal'
 
-export function Intro() {
-  const { eyebrow, heading, body, pillars } = homepage.intro
+export async function Intro() {
+  const c = await getPageContent()
+  const eyebrow = c.text('home.intro_eyebrow')
+  const heading = c.text('home.intro_heading')
+  const body = c.text('home.intro_body')
+  const pillars = c.list('home.intro_pillars')
 
   return (
     <section className="px-5 py-20 sm:px-8 md:py-28">

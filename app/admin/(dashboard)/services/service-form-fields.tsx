@@ -1,4 +1,4 @@
-import { Field, TextInput, TextArea } from '@/components/admin/admin-fields'
+import { Field, TextInput, TextArea, ImageField } from '@/components/admin/admin-fields'
 
 type ServiceRow = {
   title: string
@@ -11,6 +11,8 @@ type ServiceRow = {
   related: string[]
   counsellors: string[]
   booking_url: string | null
+  image_url?: string | null
+  cta_label?: string | null
 }
 
 /** Shared fields for the service create/edit forms. */
@@ -45,6 +47,10 @@ export function ServiceFormFields({ service }: { service?: ServiceRow }) {
       </Field>
       <Field label="Counsellor slugs" hint="One per line, e.g. jane-doe">
         <TextArea name="counsellors" defaultValue={listVal(service?.counsellors)} rows={2} />
+      </Field>
+      <ImageField label="Service image" name="image_url" defaultValue={service?.image_url ?? ''} hint="Shown on the service page. Choose a file to upload, or paste a link." />
+      <Field label="Button text" hint="Optional — replaces “Start a Conversation” on this service’s WhatsApp button">
+        <TextInput name="cta_label" defaultValue={service?.cta_label ?? ''} />
       </Field>
       <Field label="Booking URL" hint="Optional — Google Calendar link specific to this service">
         <TextInput name="booking_url" defaultValue={service?.booking_url ?? undefined} type="url" />

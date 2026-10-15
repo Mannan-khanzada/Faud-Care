@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { getSupabaseServerClient } from '@/lib/supabase/server'
+import { resolveImage } from '@/lib/admin/upload'
 
 const LIST_PATH = '/admin/counsellors'
 
@@ -33,7 +34,13 @@ async function requireClient() {
   return supabase
 }
 
-function fieldsFrom(formData: FormData) {
+async function fieldsFrom(supabase: Awaited<ReturnType<typeof requireClient>>, formData: FormData) {
+  let photo = ''
+  try {
+    photo = await resolveImage(supabase, formData, 'photo', 'counsellors')
+  } catch (e) {
+    fail(e instanceof Error ? e.message : 'Image upload failed.')
+  }
   return {
     name: String(formData.get('name') ?? ''),
     title: String(formData.get('title') ?? ''),
@@ -49,7 +56,7 @@ function fieldsFrom(formData: FormData) {
     session_format: String(formData.get('session_format') ?? ''),
     fee: String(formData.get('fee') ?? ''),
     booking_url: String(formData.get('booking_url') ?? '') || null,
-    photo: String(formData.get('photo') ?? '') || '/counsellor-placeholder.png',
+    photo: photo || '/counsellor-placeholder.png',
     published: formData.get('published') === 'on',
     sort_order: Number(formData.get('sort_order') ?? 0),
   }
@@ -62,7 +69,7 @@ export async function createCounsellor(formData: FormData) {
 
   const { error } = await supabase.from('counsellors').insert({
     slug: slugify(slugInput || name),
-    ...fieldsFrom(formData),
+    ...(await fieldsFrom(supabase, formData)),
   })
   if (error) fail(error.message)
 
@@ -73,7 +80,7 @@ export async function createCounsellor(formData: FormData) {
 export async function updateCounsellor(slug: string, formData: FormData) {
   const supabase = await requireClient()
 
-  const { error } = await supabase.from('counsellors').update(fieldsFrom(formData)).eq('slug', slug)
+  const { error } = await supabase.from('counsellors').update(await fieldsFrom(supabase, formData)).eq('slug', slug)
   if (error) fail(error.message)
 
   revalidatePath('/', 'layout')

@@ -1,10 +1,14 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
-import { homepage } from '@/lib/content/homepage'
+import { getPageContent } from '@/lib/content/page-content'
 import { Reveal } from '@/components/reveal'
 
-export function ApproachSection() {
-  const { eyebrow, heading, body, points } = homepage.approach
+export async function ApproachSection() {
+  const c = await getPageContent()
+  const eyebrow = c.text('home.approach_eyebrow')
+  const heading = c.text('home.approach_heading')
+  const body = c.text('home.approach_body')
+  const points = c.list('home.approach_points')
 
   return (
     <section className="bg-secondary/40 px-5 py-20 sm:px-8 md:py-28">
@@ -12,7 +16,7 @@ export function ApproachSection() {
         <Reveal className="relative order-last lg:order-first">
           <div className="relative aspect-4/3 overflow-hidden rounded-[2rem] border border-border shadow-[0_30px_70px_-45px_rgba(35,55,79,0.5)]">
             <Image
-              src="/approach.png"
+              src={c.text('home.approach_image') || '/approach.png'}
               alt="A soft green branch casting a gentle shadow on an ivory wall"
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"

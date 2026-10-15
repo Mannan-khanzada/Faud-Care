@@ -1,3 +1,4 @@
+import { toList, toStr } from '@/lib/to-list'
 import { getSupabasePublicClient } from '@/lib/supabase/server'
 
 export type Counsellor = {
@@ -117,20 +118,20 @@ function rowToCounsellor(row: CounsellorRow): Counsellor {
   return {
     slug: row.slug,
     name: row.name,
-    title: row.title,
-    shortBio: row.short_bio,
-    fullBio: row.full_bio,
-    qualifications: row.qualifications,
-    certifications: row.certifications,
-    experience: row.experience,
-    areas: row.areas,
-    specialties: row.specialties,
-    languages: row.languages,
-    approach: row.approach,
-    sessionFormat: row.session_format,
-    fee: row.fee,
+    title: toStr(row.title),
+    shortBio: toStr(row.short_bio),
+    fullBio: toStr(row.full_bio),
+    qualifications: toList(row.qualifications),
+    certifications: toList(row.certifications),
+    experience: toStr(row.experience),
+    areas: toList(row.areas),
+    specialties: toList(row.specialties),
+    languages: toList(row.languages),
+    approach: toStr(row.approach),
+    sessionFormat: toStr(row.session_format),
+    fee: toStr(row.fee),
     bookingUrl: row.booking_url ?? undefined,
-    photo: row.photo,
+    photo: toStr(row.photo),
     published: row.published,
   }
 }

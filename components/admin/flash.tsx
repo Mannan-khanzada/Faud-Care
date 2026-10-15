@@ -8,7 +8,7 @@ function hint(message: string) {
   if (m.includes('row-level security'))
     return 'Permission denied by the database. Make sure you are signed in and that supabase/schema.sql was run completely.'
   if (m.includes('does not exist') || m.includes('schema cache'))
-    return 'A table is missing. Run supabase/schema.sql in the Supabase SQL Editor.'
+    return 'A table or column is missing. In the Supabase SQL Editor run supabase/schema.sql, then updates-fuad-changes.sql and updates-services-image-cta.sql.'
   if (m.includes('duplicate key'))
     return 'An item with this URL slug / ID already exists. Use a different name or slug.'
   return null

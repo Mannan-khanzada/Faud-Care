@@ -1,4 +1,5 @@
 import { Reveal } from './reveal'
+import { getPageContent } from '@/lib/content/page-content'
 import { BookingButton } from './booking-button'
 import { WhatsAppButton } from './whatsapp-button'
 
@@ -15,12 +16,15 @@ type CtaSectionProps = {
  * The shared final call-to-action used across major pages. Booking goes to
  * Google Calendar; the secondary action starts a WhatsApp conversation.
  */
-export function CtaSection({
-  heading = "You don't have to figure everything out alone.",
-  supporting = "Whenever you're ready, we're here to listen.",
+export async function CtaSection({
+  heading,
+  supporting,
   fallbackMessage,
   whatsappMessage,
 }: CtaSectionProps) {
+  const c = await getPageContent()
+  heading = heading ?? c.text('cta.heading')
+  supporting = supporting ?? c.text('cta.supporting')
   return (
     <section className="px-5 py-20 sm:px-8 md:py-28">
       <div className="mx-auto max-w-4xl">

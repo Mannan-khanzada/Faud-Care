@@ -35,7 +35,7 @@ export function WhatsAppButton({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Start a Conversation on WhatsApp"
+      aria-label={`${label} (opens WhatsApp)`}
       className={cn(ctaVariants({ variant, size }), className)}
     >
       {showIcon && <MessageCircle className="size-4" aria-hidden="true" />}

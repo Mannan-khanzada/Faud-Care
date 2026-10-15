@@ -31,7 +31,9 @@ export default async function AdminLoginPage() {
               <li>Create a free project at supabase.com.</li>
               <li>
                 Run <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/schema.sql</code>{' '}
-                then <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/seed.sql</code>{' '}
+                then <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/seed.sql</code>,{' '}
+                <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/updates-fuad-changes.sql</code> and{' '}
+                <code className="rounded bg-muted px-1 py-0.5 text-xs">supabase/updates-services-image-cta.sql</code>{' '}
                 in its SQL editor.
               </li>
               <li>

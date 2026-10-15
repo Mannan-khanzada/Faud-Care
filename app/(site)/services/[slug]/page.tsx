@@ -16,6 +16,7 @@ import { SectionHeading } from '@/components/section-heading'
 import { ServiceCard } from '@/components/service-card'
 import { CounsellorCard } from '@/components/counsellor-card'
 import { FaqAccordion } from '@/components/faq-accordion'
+import Image from 'next/image'
 import { BookingButton } from '@/components/booking-button'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { whatsappMessages } from '@/lib/whatsapp'
@@ -109,6 +110,19 @@ export default async function ServiceDetailPage({
       <section className="px-5 py-16 sm:px-8 md:py-24">
         <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
           <div className="flex flex-col gap-12">
+            {service.imageUrl && (
+              <Reveal>
+                <div className="relative aspect-16/9 overflow-hidden rounded-3xl border border-border">
+                  <Image
+                    src={service.imageUrl}
+                    alt={service.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    className="object-cover"
+                  />
+                </div>
+              </Reveal>
+            )}
             <Reveal>
               <p className="text-pretty text-lg leading-relaxed text-navy/80">
                 {service.intro}
@@ -157,6 +171,7 @@ export default async function ServiceDetailPage({
               <WhatsAppButton
                 variant="outline"
                 className="w-full"
+                label={service.ctaLabel}
                 message={whatsappMessages.service(service.title)}
               />
             </Reveal>
