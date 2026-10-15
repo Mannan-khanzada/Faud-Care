@@ -2,7 +2,7 @@
 // Run from the project root:   node check-sync.mjs
 // It compares your project files with the latest version and lists what is
 // MISSING or OUTDATED. It only reads files — it never changes anything.
-import { readFileSync, existsSync, writeFileSync } from 'node:fs'
+import { readFileSync, existsSync, writeFileSync, readdirSync, statSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 
 const manifest = {
@@ -142,13 +142,33 @@ for (const [path, expected] of Object.entries(manifest)) {
   if (hash !== expected) outdated.push(path)
 }
 
+// Files that should NOT be there: source files that are not part of the latest version
+// (for example a zip extracted into the wrong folder, or a misspelled copy).
+const extra = []
+const exts = ['.ts', '.tsx', '.mjs', '.css', '.sql']
+const skip = new Set(['node_modules', '.next', '.git', 'public'])
+function walk(dir) {
+  for (const name of readdirSync(dir)) {
+    if (skip.has(name)) continue
+    const full = dir === '.' ? name : `${dir}/${name}`
+    if (statSync(full).isDirectory()) { walk(full); continue }
+    if (!exts.some((e) => name.endsWith(e))) continue
+    if (name === 'next-env.d.ts' || name === 'check-sync.mjs' || name.endsWith('.tsbuildinfo')) continue
+    if (!(full in manifest)) extra.push(full)
+  }
+}
+walk('.')
+if (existsSync('app/public')) extra.push('app/public  (folder should not exist)')
+
 const lines = []
 lines.push(`Checked ${Object.keys(manifest).length} files.`)
 lines.push(`MISSING:  ${missing.length}`)
 lines.push(`OUTDATED: ${outdated.length}`)
+lines.push(`EXTRA:    ${extra.length}`)
 if (missing.length) { lines.push('', '--- MISSING (copy these from the latest zip) ---', ...missing) }
 if (outdated.length) { lines.push('', '--- OUTDATED (overwrite these from the latest zip) ---', ...outdated) }
-if (!missing.length && !outdated.length) lines.push('', 'All files match the latest version.')
+if (extra.length) { lines.push('', '--- EXTRA / STRAY (delete these — they are not part of the project) ---', ...extra) }
+if (!missing.length && !outdated.length && !extra.length) lines.push('', 'All files match the latest version.')
 const report = lines.join('\n')
 console.log(report)
 writeFileSync('sync-report.txt', report)
